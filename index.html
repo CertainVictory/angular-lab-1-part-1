@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
+
+</head>
+
+<body>
+    <section class="disflex">
+        <section class="list-container" ng-controller="TodoController as $ctrl">
+                <p class="stylep1">TODO List</p>
+                <p class="stylep2">A place to store things you have to do!</p>
+                <input class="field" type="text" placeholder="Filter you to-dos">
+                <ol>
+                    <li ng-repeat="todo in $ctrl.tasks">
+                        <section class="li-style">
+                            <!-- <span>{{$index +1}}</span> -->
+                            <button class="btn-comp" ng-if="!todo.completed">Complete</button>
+                            <!-- task name --- swap out material icon -->
+                            <!--WILL HIDE OR SHOW ELEMENT BASED OFF todo.completed-->
+                            <p  class="stylep2" ng-class="{'completed': todo.completed}">{{todo.task}}</p>
+                            <!-- ng-class must have an object  {} this strikes through the task -->
+                            <input class="hello" type="image" src="assets/close.png" /></section>
+
+                    </li>
+                </ol>
+
+                <input class="field" type="text" placeholder="Add your to-do">
+                <button class="btn-add">Add</button>
+            
+
+        </section>
+    <!-- </section> -->
+
+
+
+    <script src="https://code.angularjs.org/1.6.5/angular.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/app.controller.js"></script>
+</body>
+
+</html>
