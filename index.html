@@ -14,35 +14,60 @@
 <body>
     <section class="disflex">
         <section class="list-container" ng-controller="TodoController as $ctrl">
-                <p class="stylep1">TODO List</p>
-                <p class="stylep2">A place to store things you have to do!</p>
-                <input class="field" type="text" placeholder="Filter you to-dos">
-                <ol>
-                    <li ng-repeat="todo in $ctrl.tasks">
-                        <section class="li-style">
-                            <!-- <span>{{$index +1}}</span> -->
-                            <button class="btn-comp" ng-if="!todo.completed">Complete</button>
-                            <!-- task name --- swap out material icon -->
-                            <!--WILL HIDE OR SHOW ELEMENT BASED OFF todo.completed-->
-                            <p  class="stylep2" ng-class="{'completed': todo.completed}">{{todo.task}}</p>
-                            <!-- ng-class must have an object  {} this strikes through the task -->
-                            <input class="hello" type="image" src="assets/close.png" /></section>
+            <p class="stylep1">TODO List</p>
+            <p class="stylep2">A place to store things you have to do!</p>
+            <input class="field" ng-model="filterTasks" type="text" placeholder="Filter you to-dos">
+            <ol>
+                <li ng-repeat="todo in $ctrl.tasks | filter: filterTasks">
+                    <section class="li-style">
+                        <!-- <span>{{$index +1}}</span> -->
+                        <button class="btn-comp" ng-click="todo.completed = true"
+                            ng-if="!todo.completed">Complete</button>
+                        <!-- task name --- swap out material icon -->
+                        <!--WILL HIDE OR SHOW ELEMENT BASED OFF todo.completed-->
+                        <p ng-hide="editMode" class="stylep2" ng-class="{'completed': todo.completed }">
+                            {{todo.task}} </p>
 
-                    </li>
-                </ol>
 
-                <input class="field" type="text" placeholder="Add your to-do">
-                <button class="btn-add">Add</button>
-            
+                        <input class="edit-field" type="text" ng-show="editMode" ng-model="todo.task" />
+                       
+                       
+                       
+                        <button class="btn-incomp" ng-show="editMode" ng-click="todo.completed = false"
+                            ng-if="todo.completed">Incomplete</button>
+                        
+                        
+                        <button ng-hide="editMode" ng-click="editMode = true; $ctrl.editTask()"
+                            class="btn-em">Edit</button>
+                        
+                        
+                            <button ng-show="editMode" ng-click="editMode = false; $ctrl.saveTask()"
+                            class="btn-em btn-space">Save</button>
+                        
+                        
+                        
+                            <!-- <button type="button" ng-show="editMode" ng-click="editMode = false; $ctrl.cancel()"
+                            class="btn-em btn-space">Cancel</button> -->
+                        <!-- ng-class must have an object  {} this strikes through the task -->
+                        <input class="hello" ng-click="$ctrl.delete($index)" type="image" src="assets/close.png" />
+                    </section>
+                </li>
+            </ol>
+            <form ng-submit="$ctrl.add($ctrl.addTask)">
+                <input class="field" ng-model="$ctrl.addTask.task" type="text" placeholder="Add your to-do">
+
+                <button ng-disabled="!$ctrl.addTask" class="btn-add">Add</button>
+            </form>
+            <!-- ng-disabled="!myForm.myInput.$touched" -->
 
         </section>
-    <!-- </section> -->
+        <!-- </section> -->
 
 
 
-    <script src="https://code.angularjs.org/1.6.5/angular.js"></script>
-    <script src="app/app.module.js"></script>
-    <script src="app/app.controller.js"></script>
+        <script src="https://code.angularjs.org/1.6.5/angular.js"></script>
+        <script src="app/app.module.js"></script>
+        <script src="app/app.controller.js"></script>
 </body>
 
 </html>
